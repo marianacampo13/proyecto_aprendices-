@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mapa de centros de formación</title>
+
+    <!-- Estilos de MapLibre -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/maplibre-gl@^6.16.0/dist/maplibre-gl.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #mapa {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Centro Industrial y de Desarrollo Empresarial</h1>
+
+    <p>
+        <strong>Dirección:</strong>
+        Carrera 36 # 17-206
+    </p>
+
+    <div id="mapa"></div>
+
+    <script type="module">
+        import * as maplibregl from
+        'https://unpkg.com/maplibre-gl@^6.16.0/dist/maplibre-gl.mjs';
+
+        // Coordenadas aproximadas de la ubicación
+        const longitud = -74.21937;
+        const latitud = 4.60626;
+
+        // Crear el mapa centrado en el lugar
+        const mapa = new maplibregl.Map({
+            container: 'mapa',
+            style: 'https://demotiles.maplibre.org/style.json',
+            center: [longitud, latitud],
+            zoom: 16
+        });
+
+        // Mostrar el marcador del centro de formación
+        const marcador = new maplibregl.Marker()
+            .setLngLat([longitud, latitud])
+            .setPopup(
+                new maplibregl.Popup().setHTML(
+                    '<h3>Centro Industrial y de Desarrollo Empresarial</h3>' +
+                    '<p>Carrera 36 # 17-206</p>'
+                )
+            )
+            .addTo(mapa);
+
+        // Abrir la información al cargar el mapa
+        marcador.togglePopup();
+    </script>
+
+</body>
+</html>

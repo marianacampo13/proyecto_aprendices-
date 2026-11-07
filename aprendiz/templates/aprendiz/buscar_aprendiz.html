@@ -1,0 +1,113 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar aprendiz | SENA</title>
+
+    <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Buscar aprendiz</h1>
+        <p>Consulta la información de los aprendices registrados</p>
+    </header>
+
+    <main class="contenedor-principal">
+
+        <section class="buscador-contenedor">
+
+            <h2>¿Qué aprendiz deseas encontrar?</h2>
+
+            <form method="POST" class="formulario-busqueda">
+                {% csrf_token %}
+
+                <input
+                    type="text"
+                    name="buscar"
+                    placeholder="Nombre, apellido o documento..."
+                    required
+                >
+
+                <button type="submit" class="boton buscar">
+                    Buscar
+                </button>
+            </form>
+
+        </section>
+
+        {% if resultado != None %}
+
+            <section class="seccion-resultados">
+
+                <h2>Resultados de la búsqueda</h2>
+
+                {% for aprendiz in resultado %}
+
+                    <article class="resultado-aprendiz">
+
+                        <h3>
+                            {{ aprendiz.nombre }} {{ aprendiz.apellido }}
+                        </h3>
+
+                        <p>
+                            <strong>Documento:</strong>
+                            {{ aprendiz.documento }}
+                        </p>
+
+                        <p>
+                            <strong>Teléfono:</strong>
+                            {{ aprendiz.telefono }}
+                        </p>
+
+                        <p>
+                            <strong>Correo electrónico:</strong>
+                            {{ aprendiz.correo }}
+                        </p>
+
+                        <div class="acciones">
+
+                            <a
+                                href="{% url 'editar_aprendiz' aprendiz.documento %}"
+                                class="boton editar"
+                            >
+                                Editar
+                            </a>
+
+                            <a
+                                href="{% url 'eliminar_aprendiz' aprendiz.documento %}"
+                                class="boton eliminar"
+                            >
+                                Eliminar
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% empty %}
+
+                    <p class="sin-resultados">
+                        No se encontraron aprendices con esos datos.
+                    </p>
+
+                {% endfor %}
+
+            </section>
+
+        {% endif %}
+
+        <div class="volver-inicio">
+            <a href="{% url 'lista' %}" class="boton volver">
+                Volver al listado principal
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>

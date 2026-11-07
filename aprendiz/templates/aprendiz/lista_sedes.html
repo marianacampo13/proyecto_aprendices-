@@ -1,0 +1,74 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Listado de sedes</title>
+
+    <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Listado de Sedes SENA</h1>
+    </header>
+
+    <main class="contenedor-principal">
+
+        <a href="{% url 'registrar_sede' %}">
+            <button type="button">Registrar nueva sede</button>
+        </a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Ciudad</th>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sede in sedes %}
+                <tr>
+                    <td>{{ sede.nombre }}</td>
+                    <td>{{ sede.direccion }}</td>
+                    <td>{{ sede.ciudad }}</td>
+                    <td>{{ sede.latitud }}</td>
+                    <td>{{ sede.longitud }}</td>
+
+                    <td>
+                        <a href="{% url 'editar_sede' sede.id %}">
+                            <button type="button">Editar</button>
+                        </a>
+
+                        <a href="{% url 'eliminar_sede' sede.id %}">
+                            <button type="button">Eliminar</button>
+                        </a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="6">
+                        No hay sedes registradas actualmente.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+
+        <a href="{% url 'lista' %}">Volver al inicio</a>
+
+    </main>
+
+</body>
+</html>

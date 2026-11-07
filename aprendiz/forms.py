@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import aprendiz, programa, instructores, competencias
+from .models import aprendiz, programa, instructores, competencias, Sede
 
 
 class AprendizForm(forms.ModelForm):
@@ -55,3 +55,9 @@ class CompetenciaForm(forms.ModelForm):
             'programa',
             'instructores'
         ]
+
+class SedeForm(forms.ModelForm):
+
+    class Meta:
+        model = Sede
+        fields = ['nombre', 'direccion', 'ciudad', 'latitud', 'longitud']

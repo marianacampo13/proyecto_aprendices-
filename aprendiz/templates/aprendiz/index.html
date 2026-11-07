@@ -1,38 +1,54 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head> 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1,0">
-        <title>Listado de Aprendices</title>
-        <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Aprendices SENA</title>
+    <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
 </head>
 <body>
+
     <header class="encabezado">
         <h1>Listado de Aprendices SENA</h1>
+        <p>Administración y gestión de aprendices</p>
     </header>
 
     <main class="contenedor-principal">
-        <section class="tabla-seccion">                        
-            
-            <!-- Botón para ir a registrar (fuera de la tabla o arriba de ella para mayor orden) -->
-            <div style="margin-bottom: 15px;">
-                <a href="{% url 'registrar_aprendiz' %}">
-                    <button type="button">Registrar nuevo aprendiz</button>
+
+        <section class="tabla-seccion">
+
+            <div class="botones-index">
+                <a href="{% url 'registrar_aprendiz' %}" class="boton-index registrar">
+                    + Registrar nuevo aprendiz
+                </a>
+
+                <a href="{% url 'registrar_sede' %}" class="boton-index sedes">
+                    + Registrar sede
+                </a>
+
+                <a href="{% url 'lista_sedes' %}" class="boton-index ver-sedes">
+                    Ver sedes registradas
+                </a>
+
+                <a href="{% url 'buscar_aprendiz' %}" class="boton-index buscar">
+                    Buscar aprendiz
                 </a>
             </div>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre Completo</th>
+                        <th>Nombre completo</th>
                         <th>Documento</th>
                         <th>Teléfono</th>
-                        <th>Correo Electrónico</th>
-                        <th>Programa de Formación y Ficha</th>
-                        <th>Acciones</th> <!-- NUEVA COLUMNA PARA EDITAR -->
+                        <th>Correo electrónico</th>
+                        <th>Programa de formación y ficha</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for aprendiz in aprendices %}
                     <tr>
@@ -46,17 +62,21 @@
                             {% else %}
                                 Sin programa asignado
                             {% endif %}
-                        </td> 
-                        
-                        <!-- NUEVA CELDA CON EL BOTÓN DE EDITAR -->
-                        <td>
-                            <a href="{% url 'editar_aprendiz' aprendiz.documento %}">
-                                <button type="button">Editar</button>
-                            </a>
-                            <a href="{% url 'eliminar_aprendiz' aprendiz.documento %}"><button type="button" style="background-color: #d9534f; color: white;">Eliminar</button></a>
                         </td>
 
+                        <td class="acciones-index">
+                            <a href="{% url 'editar_aprendiz' aprendiz.documento %}"
+                               class="boton-accion editar">
+                                Editar
+                            </a>
+
+                            <a href="{% url 'eliminar_aprendiz' aprendiz.documento %}"
+                               class="boton-accion eliminar">
+                                Eliminar
+                            </a>
+                        </td>
                     </tr>
+
                     {% empty %}
                     <tr>
                         <td colspan="6">No hay aprendices registrados actualmente.</td>
@@ -64,7 +84,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+
         </section>
     </main>
+
 </body>
 </html>

@@ -68,3 +68,16 @@ class competencias(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+    
+class Sede(models.Model):
+
+    nombre = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=200)
+    ciudad = models.CharField(max_length=100)
+    latitud = models.FloatField()
+    longitud = models.FloatField()
+
+    def __str__(self):
+        return self.nombre

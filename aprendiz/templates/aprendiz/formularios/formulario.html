@@ -8,12 +8,24 @@
 
     <title>{{ titulo }}</title>
 
-    <!-- Estilos del formulario -->
     <link rel="stylesheet" href="{% static 'aprendiz/css/formulario.css' %}">
-</head>
-<body>
 
-    {% block contend %}
+    {% if mostrar_mapa %}
+        <link rel="stylesheet"
+        href="https://unpkg.com/maplibre-gl@^6.16.0/dist/maplibre-gl.css">
+
+        <style>
+            #mapa {
+                width: 100%;
+                height: 400px;
+                margin-top: 20px;
+                border-radius: 10px;
+            }
+        </style>
+    {% endif %}
+</head>
+
+<body>
 
     <h1>{{ titulo }}</h1>
 
@@ -28,10 +40,74 @@
 
         {{ form.as_p }}
 
+        {% if mostrar_mapa %}
+            <h2>Selecciona la ubicación de la sede</h2>
+
+            <p>Haz clic sobre el mapa para seleccionar la ubicación.</p>
+
+            <div id="mapa"></div>
+        {% endif %}
+
         <button type="submit">Guardar</button>
     </form>
 
-    {% endblock %}
+    {% if mostrar_mapa %}
+        
+<script type="module">
+    import * as maplibregl from
+    'https://unpkg.com/maplibre-gl@^6.16.0/dist/maplibre-gl.mjs';
+
+    // Coordenadas aproximadas del centro de formación
+    const longitud = -74.21937;
+    const latitud = 4.60626;
+
+    // Crear el mapa centrado en la sede
+    const mapa = new maplibregl.Map({
+        container: 'mapa',
+        style: 'https://tiles.openfreemap.org/styles/liberty',
+        center: [longitud, latitud],
+        zoom: 16
+    });
+
+    // Crear el marcador inicial
+    let marcador = new maplibregl.Marker()
+        .setLngLat([longitud, latitud])
+        .setPopup(
+            new maplibregl.Popup().setHTML(
+                '<h3>Centro Industrial y de Desarrollo Empresarial</h3>' +
+                '<p>Carrera 36 # 17-206</p>'
+            )
+        )
+        .addTo(mapa);
+
+    // Mostrar la información del centro al abrir el mapa
+    marcador.togglePopup();
+
+    // Cargar las coordenadas iniciales en el formulario
+    mapa.on('load', function() {
+        document.getElementById('id_latitud').value = latitud;
+        document.getElementById('id_longitud').value = longitud;
+    });
+
+    // Permitir seleccionar otra ubicación haciendo clic
+    mapa.on('click', function(evento) {
+        const nuevaLongitud = evento.lngLat.lng;
+        const nuevaLatitud = evento.lngLat.lat;
+
+        document.getElementById('id_latitud').value = nuevaLatitud;
+        document.getElementById('id_longitud').value = nuevaLongitud;
+
+        marcador.setLngLat([nuevaLongitud, nuevaLatitud]);
+        marcador.setPopup(
+            new maplibregl.Popup().setText(
+                'Latitud: ' + nuevaLatitud.toFixed(6) +
+                ', Longitud: ' + nuevaLongitud.toFixed(6)
+            )
+        );
+    });
+</script>
+
+    {% endif %}
 
 </body>
 </html>

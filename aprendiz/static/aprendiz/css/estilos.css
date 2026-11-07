@@ -1,4 +1,5 @@
-/* --- Estilos Generales --- */
+
+/* --- ESTILOS GENERALES --- */
 * {
     margin: 0;
     padding: 0;
@@ -12,9 +13,9 @@ body {
     line-height: 1.6;
 }
 
-/* --- Encabezado --- */
+/* --- ENCABEZADO --- */
 .encabezado {
-    background-color: #39A900; /* Verde institucional SENA */
+    background-color: #39A900;
     color: #ffffff;
     padding: 2rem 1rem;
     text-align: center;
@@ -27,20 +28,23 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* --- Contenedor Principal --- */
+.encabezado p {
+    margin-top: 8px;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .contenedor-principal {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* --- Sección de la Tabla --- */
+/* --- SECCIÓN DE LA TABLA --- */
 .tabla-seccion {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden; /* Asegura que los bordes redondeados afecten a la tabla */
-    overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+    overflow-x: auto;
 }
 
 table {
@@ -51,7 +55,7 @@ table {
 }
 
 thead {
-    background-color: #00324d; /* Azul oscuro elegante para contraste */
+    background-color: #00324d;
     color: #ffffff;
 }
 
@@ -70,17 +74,17 @@ td {
     border-bottom: 1px solid #eeeeee;
 }
 
-/* --- Efecto cebra y hover en las filas --- */
+/* --- EFECTO CEBRA Y AL PASAR EL MOUSE --- */
 tbody tr:nth-child(even) {
     background-color: #fafbfc;
 }
 
 tbody tr:hover {
-    background-color: #f1f8e9; /* Un verde muy sutil al pasar el mouse */
+    background-color: #f1f8e9;
     transition: background-color 0.2s ease-in-out;
 }
 
-/* --- Fila cuando no hay registros --- */
+/* --- FILA SIN REGISTROS --- */
 tbody tr td[colspan="5"] {
     text-align: center;
     padding: 2.5rem;
@@ -88,14 +92,280 @@ tbody tr td[colspan="5"] {
     font-style: italic;
 }
 
-/* --- Responsividad para celulares --- */
+/* --- CONTENEDOR DEL BUSCADOR --- */
+.buscador-contenedor {
+    margin: 25px 0;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.buscador-contenedor h2,
+.seccion-resultados h2 {
+    color: #00324d;
+    margin-bottom: 15px;
+}
+
+/* --- FORMULARIO DE BÚSQUEDA --- */
+.formulario-busqueda {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.formulario-busqueda input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+
+.formulario-busqueda input:focus {
+    border-color: #2563eb;
+}
+
+/* --- ESTILO GENERAL DE LOS BOTONES --- */
+.boton {
+    display: inline-block;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* --- BOTÓN BUSCAR --- */
+.boton.buscar {
+    background-color: #1d4ed8;
+    color: white;
+}
+
+.boton.buscar:hover {
+    background-color: #1e40af;
+}
+
+/* --- BOTÓN EDITAR --- */
+.boton.editar {
+    background-color: #facc15;
+    color: #1f2937;
+}
+
+.boton.editar:hover {
+    background-color: #eab308;
+}
+
+/* --- BOTÓN ELIMINAR --- */
+.boton.eliminar {
+    background-color: #dc2626;
+    color: white;
+}
+
+.boton.eliminar:hover {
+    background-color: #b91c1c;
+}
+
+/* --- ACCIONES DE CADA APRENDIZ --- */
+.acciones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+/* --- TARJETAS DE RESULTADOS --- */
+.seccion-resultados {
+    margin-top: 25px;
+}
+
+.resultado-aprendiz {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.resultado-aprendiz h3 {
+    color: #00324d;
+    margin-bottom: 12px;
+}
+
+.resultado-aprendiz p {
+    margin: 8px 0;
+}
+
+/* --- MENSAJE SIN RESULTADOS --- */
+.sin-resultados {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 8px;
+    color: #555555;
+}
+
+/* --- BOTÓN VOLVER AL INICIO --- */
+.volver-inicio {
+    margin: 25px 0;
+}
+
+.boton.volver {
+    background-color: #39A900;
+    color: #ffffff;
+}
+
+.boton.volver:hover {
+    background-color: #2d8500;
+}
+
+/* --- DISEÑO PARA CELULARES --- */
 @media (max-width: 768px) {
     .encabezado h1 {
         font-size: 1.6rem;
     }
-    
-    th, td {
+
+    th,
+    td {
         padding: 0.75rem 1rem;
         font-size: 0.85rem;
+    }
+
+    .formulario-busqueda {
+        flex-direction: column;
+    }
+
+    .formulario-busqueda input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .formulario-busqueda button {
+        width: 100%;
+    }
+
+    .resultado-aprendiz {
+        padding: 15px;
+    }
+}
+
+
+
+/* BOTONES PRINCIPALES DEL INDEX */
+
+.botones-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.boton-index {
+    display: inline-block;
+    padding: 12px 18px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+
+.boton-index:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.boton-index.registrar {
+    background-color: #39A900;
+}
+
+.boton-index.registrar:hover {
+    background-color: #2d8500;
+}
+
+.boton-index.sedes {
+    background-color: #7048c8;
+}
+
+.boton-index.sedes:hover {
+    background-color: #5634a3;
+}
+
+.boton-index.ver-sedes {
+    background-color: #0879c9;
+}
+
+.boton-index.ver-sedes:hover {
+    background-color: #065e9c;
+}
+
+.boton-index.buscar {
+    background-color: #e68a00;
+}
+
+.boton-index.buscar:hover {
+    background-color: #bd7000;
+}
+
+/* BOTONES DE EDITAR Y ELIMINAR */
+
+.acciones-index {
+    white-space: nowrap;
+}
+
+.boton-accion {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 3px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.boton-accion.editar {
+    background-color: #0879c9;
+}
+
+.boton-accion.editar:hover {
+    background-color: #065e9c;
+    transform: translateY(-2px);
+}
+
+.boton-accion.eliminar {
+    background-color: #dc3545;
+}
+
+.boton-accion.eliminar:hover {
+    background-color: #b02a37;
+    transform: translateY(-2px);
+}
+
+/* ADAPTACIÓN A CELULARES */
+
+@media (max-width: 600px) {
+    .botones-index {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .boton-index {
+        text-align: center;
+    }
+
+    .acciones-index {
+        white-space: normal;
     }
 }

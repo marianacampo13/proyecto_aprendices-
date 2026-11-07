@@ -1,0 +1,37 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar sede</title>
+    <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Eliminar sede</h1>
+    </header>
+
+    <main class="contenedor-principal">
+        <p>
+            ¿Estás segura de que deseas eliminar esta sede?
+        </p>
+
+        <p><strong>Nombre:</strong> {{ sede.nombre }}</p>
+        <p><strong>Dirección:</strong> {{ sede.direccion }}</p>
+        <p><strong>Ciudad:</strong> {{ sede.ciudad }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Sí, eliminar</button>
+        </form>
+
+        <br>
+
+        <a href="{% url 'lista_sedes' %}">Cancelar y volver al listado</a>
+    </main>
+
+</body>
+</html>
