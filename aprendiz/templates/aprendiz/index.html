@@ -5,88 +5,425 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Aprendices SENA</title>
+
+    <title>Gestión de Aprendices SENA</title>
+
     <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f3f7f4;
+            color: #26372c;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .encabezado {
+            background: linear-gradient(135deg, #08783b, #07552d);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .encabezado h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .encabezado > p {
+            margin: 8px 0;
+        }
+
+        .informacion-usuario {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .etiqueta-usuario {
+            padding: 9px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 14px;
+        }
+
+        .form-cerrar-sesion {
+            display: inline;
+        }
+
+
+.boton-mi-perfil {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    background: white;
+    color: #08783b;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.boton-mi-perfil:hover {
+    background: #e5f2e8;
+    color: #07552d;
+}
+
+
+        .boton-cerrar {
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .boton-cerrar:hover {
+            background: white;
+            color: #08783b;
+        }
+
+        .contenedor-principal {
+            width: 95%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .tabla-seccion {
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 22px rgba(25, 65, 38, 0.08);
+        }
+
+        .titulo-seccion {
+            margin: 0 0 8px;
+            color: #126b38;
+            font-size: 24px;
+        }
+
+        .descripcion-seccion {
+            margin: 0 0 24px;
+            color: #718077;
+            line-height: 1.6;
+        }
+
+        .botones-index {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .boton-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 12px 17px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .boton-index:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .registrar {
+            background: #08783b;
+            color: white;
+        }
+
+        .sedes {
+            background: #2458a6;
+            color: white;
+        }
+
+        .ver-sedes {
+            background: #e6f2e9;
+            color: #126b38;
+        }
+
+        .buscar {
+            background: #fff1d8;
+            color: #85540b;
+        }
+
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e5ece6;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: #e5f2e8;
+        }
+
+        th {
+            padding: 15px 12px;
+            color: #175d32;
+            text-align: left;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-top: 1px solid #edf1ed;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        tbody tr:hover {
+            background: #f7fbf8;
+        }
+
+        .acciones-index {
+            white-space: nowrap;
+        }
+
+        .boton-accion {
+            display: inline-block;
+            padding: 8px 11px;
+            margin: 2px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .editar {
+            background: #e1edff;
+            color: #2458a6;
+        }
+
+        .eliminar {
+            background: #ffe5e5;
+            color: #b42323;
+        }
+
+        .sin-registros {
+            padding: 25px;
+            color: #718077;
+            text-align: center;
+        }
+
+        .pie-pagina {
+            padding: 20px;
+            color: #77847a;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .encabezado h1 {
+                font-size: 24px;
+            }
+
+            .contenedor-principal {
+                width: 96%;
+                margin: 18px auto;
+            }
+
+            .tabla-seccion {
+                padding: 16px;
+            }
+
+            .botones-index {
+                flex-direction: column;
+            }
+
+            .boton-index {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
     <header class="encabezado">
-        <h1>Listado de Aprendices SENA</h1>
-        <p>Administración y gestión de aprendices</p>
+        <h1>Gestión de Aprendices SENA</h1>
+        <p>Administración y consulta de información académica</p>
+
+        {% if user.is_authenticated %}
+            <div class="informacion-usuario">
+
+                <span class="etiqueta-usuario">
+                    Bienvenido, {{ user.username }}
+                </span>
+
+                <span class="etiqueta-usuario">
+                    {% if user.is_superuser %}
+                        Administrador
+                    {% elif user.perfil.rol_principal == 'ADMIN' %}
+                        Administrador
+                    {% elif user.perfil.rol_principal == 'INSTRUCTOR' %}
+                        Instructor
+                    {% else %}
+                        Aprendiz / Consulta
+                    {% endif %}
+                </span>
+
+<a href="{% url 'mi_perfil' %}" class="boton-mi-perfil">
+    Mi perfil
+</a>
+
+
+                <form method="post"
+                      action="{% url 'logout' %}"
+                      class="form-cerrar-sesion">
+                    {% csrf_token %}
+                    <button type="submit" class="boton-cerrar">
+                        Cerrar sesión
+                    </button>
+                </form>
+
+            </div>
+        {% endif %}
     </header>
 
     <main class="contenedor-principal">
 
         <section class="tabla-seccion">
 
-            <div class="botones-index">
-                <a href="{% url 'registrar_aprendiz' %}" class="boton-index registrar">
-                    + Registrar nuevo aprendiz
-                </a>
+            <h2 class="titulo-seccion">Panel principal</h2>
 
-                <a href="{% url 'registrar_sede' %}" class="boton-index sedes">
-                    + Registrar sede
-                </a>
+            <p class="descripcion-seccion">
+                Desde aquí puedes consultar los aprendices y acceder
+                a las opciones disponibles para tu rol.
+            </p>
 
-                <a href="{% url 'lista_sedes' %}" class="boton-index ver-sedes">
+            <nav class="botones-index">
+
+                {% if user.is_superuser or user.perfil.rol_principal == 'ADMIN' or user.perfil.rol_principal == 'INSTRUCTOR' %}
+                    <a href="{% url 'registrar_aprendiz' %}"
+                       class="boton-index registrar">
+                        + Registrar nuevo aprendiz
+                    </a>
+                {% endif %}
+
+                {% if user.is_superuser or user.perfil.rol_principal == 'ADMIN' %}
+                    <a href="{% url 'registrar_sede' %}"
+                       class="boton-index sedes">
+                        + Registrar sede
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'lista_sedes' %}"
+                   class="boton-index ver-sedes">
                     Ver sedes registradas
                 </a>
 
-                <a href="{% url 'buscar_aprendiz' %}" class="boton-index buscar">
+                <a href="{% url 'buscar_aprendiz' %}"
+                   class="boton-index buscar">
                     Buscar aprendiz
                 </a>
-            </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre completo</th>
-                        <th>Documento</th>
-                        <th>Teléfono</th>
-                        <th>Correo electrónico</th>
-                        <th>Programa de formación y ficha</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
+            </nav>
 
-                <tbody>
-                    {% for aprendiz in aprendices %}
-                    <tr>
-                        <td>{{ aprendiz.nombre }} {{ aprendiz.apellido }}</td>
-                        <td>{{ aprendiz.documento }}</td>
-                        <td>{{ aprendiz.telefono }}</td>
-                        <td>{{ aprendiz.correo }}</td>
-                        <td>
-                            {% if aprendiz.programa %}
-                                {{ aprendiz.programa.nombre }} - Ficha: {{ aprendiz.programa.ficha }}
-                            {% else %}
-                                Sin programa asignado
+            <h2 class="titulo-seccion">Listado de aprendices</h2>
+
+            <p class="descripcion-seccion">
+                Consulta los datos de los aprendices registrados.
+            </p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre completo</th>
+                            <th>Documento</th>
+                            <th>Teléfono</th>
+                            <th>Correo electrónico</th>
+                            <th>Programa de formación y ficha</th>
+
+                            {% if user.is_superuser or user.perfil.rol_principal == 'ADMIN' %}
+                                <th>Acciones</th>
                             {% endif %}
-                        </td>
+                        </tr>
+                    </thead>
 
-                        <td class="acciones-index">
-                            <a href="{% url 'editar_aprendiz' aprendiz.documento %}"
-                               class="boton-accion editar">
-                                Editar
-                            </a>
+                    <tbody>
+                        {% for aprendiz in aprendices %}
+                            <tr>
+                                <td>
+                                    {{ aprendiz.nombre }} {{ aprendiz.apellido }}
+                                </td>
 
-                            <a href="{% url 'eliminar_aprendiz' aprendiz.documento %}"
-                               class="boton-accion eliminar">
-                                Eliminar
-                            </a>
-                        </td>
-                    </tr>
+                                <td>{{ aprendiz.documento }}</td>
+                                <td>{{ aprendiz.telefono }}</td>
+                                <td>{{ aprendiz.correo }}</td>
 
-                    {% empty %}
-                    <tr>
-                        <td colspan="6">No hay aprendices registrados actualmente.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                                <td>
+                                    {% if aprendiz.programa %}
+                                        {{ aprendiz.programa.nombre }}
+                                        - Ficha: {{ aprendiz.programa.ficha }}
+                                    {% else %}
+                                        Sin programa asignado
+                                    {% endif %}
+                                </td>
+
+                                {% if user.is_superuser or user.perfil.rol_principal == 'ADMIN' %}
+                                    <td class="acciones-index">
+                                        <a href="{% url 'editar_aprendiz' aprendiz.documento %}"
+                                           class="boton-accion editar">
+                                            Editar
+                                        </a>
+
+                                        <a href="{% url 'eliminar_aprendiz' aprendiz.documento %}"
+                                           class="boton-accion eliminar">
+                                            Eliminar
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+
+                        {% empty %}
+                            <tr>
+                                {% if user.is_superuser or user.perfil.rol_principal == 'ADMIN' %}
+                                    <td colspan="6" class="sin-registros">
+                                {% else %}
+                                    <td colspan="5" class="sin-registros">
+                                {% endif %}
+                                    No hay aprendices registrados actualmente.
+                                    </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
         </section>
     </main>
+
+    <footer class="pie-pagina">
+        Sistema de gestión de aprendices · SENA
+    </footer>
 
 </body>
 </html>

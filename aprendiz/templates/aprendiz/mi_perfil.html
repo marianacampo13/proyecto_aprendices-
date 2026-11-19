@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f2;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .contenedor {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000018;
+        }
+
+        h1 {
+            color: #176b45;
+        }
+
+        .dato {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .boton {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background: #176b45;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Mi perfil</h1>
+
+        <div class="dato">
+            <strong>Usuario:</strong>
+            {{ request.user.username }}
+        </div>
+
+        <div class="dato">
+            <strong>Nombre de la cuenta:</strong>
+            {{ request.user.get_full_name|default:"No registrado" }}
+        </div>
+
+        {% if perfil %}
+            <div class="dato">
+                <strong>Rol:</strong>
+                {{ perfil.get_rol_principal_display }}
+            </div>
+        {% endif %}
+
+        {% if registro_aprendiz %}
+            <h2>Información académica</h2>
+
+            <div class="dato">
+                <strong>Nombre:</strong>
+                {{ registro_aprendiz.nombre }}
+                {{ registro_aprendiz.apellido }}
+            </div>
+
+            <div class="dato">
+                <strong>Documento:</strong>
+                {{ registro_aprendiz.documento }}
+            </div>
+
+            <div class="dato">
+                <strong>Ficha:</strong>
+                {{ registro_aprendiz.ficha }}
+            </div>
+
+            <div class="dato">
+                <strong>Programa:</strong>
+                {{ registro_aprendiz.programa|default:"No asignado" }}
+            </div>
+
+        {% elif registro_instructor %}
+            <h2>Información del instructor</h2>
+
+            <div class="dato">
+                <strong>Nombre:</strong>
+                {{ registro_instructor.nombre }}
+                {{ registro_instructor.apellido }}
+            </div>
+
+            <div class="dato">
+                <strong>Documento:</strong>
+                {{ registro_instructor.documento }}
+            </div>
+
+            <div class="dato">
+                <strong>Especialidad:</strong>
+                {{ registro_instructor.especialidad }}
+            </div>
+
+            <div class="dato">
+                <strong>Ficha asignada:</strong>
+                {{ registro_instructor.ficha_asignada }}
+            </div>
+
+        {% else %}
+            <p>No hay un registro académico asociado a esta cuenta.</p>
+        {% endif %}
+
+        <a href="/" class="boton">Volver al inicio</a>
+    </div>
+</body>
+</html>

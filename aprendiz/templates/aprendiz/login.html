@@ -1,0 +1,294 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesión | Sistema de Aprendices</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #e5f5e9, #f4f7f5, #dcefe2);
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 950px;
+            min-height: 540px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(16, 65, 37, 0.15);
+        }
+
+        .panel-verde {
+            background: linear-gradient(145deg, #168447, #075c31);
+            color: white;
+            padding: 55px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icono {
+            width: 100px;
+            height: 100px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            margin-bottom: 28px;
+        }
+
+        .panel-verde h1 {
+            font-size: 30px;
+            margin-bottom: 18px;
+        }
+
+        .panel-verde p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #e4f5e9;
+        }
+
+        .panel-formulario {
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .etiqueta-superior {
+            color: #168447;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .panel-formulario h2 {
+            color: #20352a;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .descripcion {
+            color: #77827b;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .campo {
+            margin-bottom: 22px;
+        }
+
+        .campo label {
+            display: block;
+            color: #34483b;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #dce5de;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            background: #fbfdfb;
+            transition: 0.3s;
+        }
+
+        .campo input:focus {
+            border-color: #168447;
+            box-shadow: 0 0 0 3px rgba(22, 132, 71, 0.12);
+            background: white;
+        }
+
+        .boton-ingresar {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #168447;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 5px;
+        }
+
+        .boton-ingresar:hover {
+            background: #096632;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(22, 132, 71, 0.2);
+        }
+
+        .mensaje-error {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            background: #fff0f0;
+            border: 1px solid #f3cccc;
+            color: #a52828;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .pie {
+            text-align: center;
+            color: #89938c;
+            font-size: 12px;
+            margin-top: 28px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 15px;
+            }
+
+            .contenedor {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-verde {
+                padding: 30px 25px;
+            }
+
+            .icono {
+                width: 70px;
+                height: 70px;
+                font-size: 35px;
+                margin-bottom: 18px;
+            }
+
+            .panel-verde h1 {
+                font-size: 25px;
+            }
+
+            .panel-formulario {
+                padding: 35px 25px;
+            }
+
+            .panel-formulario h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <section class="panel-verde">
+            <div class="icono">🎓</div>
+
+            <h1>Sistema de Aprendices</h1>
+
+            <p>
+                Una plataforma para gestionar y consultar
+                la información de aprendices, instructores
+                y sedes de manera organizada.
+            </p>
+        </section>
+
+        <section class="panel-formulario">
+
+            <span class="etiqueta-superior">Bienvenido de nuevo</span>
+
+            <h2>Iniciar sesión</h2>
+
+            <p class="descripcion">
+                Ingresa tus credenciales para acceder
+                a las funciones de tu cuenta.
+            </p>
+
+            {% if form.errors %}
+                <div class="mensaje-error">
+                    El usuario o la contraseña son incorrectos.
+                    Verifica tus datos e inténtalo nuevamente.
+                </div>
+            {% endif %}
+
+            {% if next %}
+                {% if user.is_authenticated %}
+                    <div class="mensaje-error">
+                        Tu cuenta no tiene permiso para acceder
+                        a esa página. Inicia sesión con otra cuenta
+                        autorizada.
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="campo">
+                    <label for="id_username">Nombre de usuario</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="id_username"
+                        placeholder="Escribe tu usuario"
+                        autocomplete="username"
+                        required
+                        autofocus
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="id_password">Contraseña</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="id_password"
+                        placeholder="Escribe tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="boton-ingresar">
+                    Ingresar a mi cuenta →
+                </button>
+            </form>
+
+            <div class="pie">
+                Sistema de gestión de aprendices<br>
+                Acceso exclusivo para usuarios registrados
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

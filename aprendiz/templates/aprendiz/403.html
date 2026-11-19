@@ -1,0 +1,60 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso denegado</title>
+    <link rel="stylesheet" href="{% static 'aprendiz/css/estilos.css' %}">
+    <style>
+        .error-permisos {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 35px;
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .error-permisos h1 {
+            color: #c0392b;
+            font-size: 30px;
+        }
+
+        .error-permisos p {
+            font-size: 17px;
+            margin: 20px 0;
+        }
+
+        .boton-inicio {
+            display: inline-block;
+            padding: 12px 22px;
+            background-color: #007832;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .boton-inicio:hover {
+            background-color: #005c26;
+        }
+    </style>
+</head>
+<body>
+    <main class="error-permisos">
+        <h1>403 - Acceso denegado</h1>
+
+        <p>
+            Lo sentimos, no tienes permisos para acceder a esta sección.
+        </p>
+
+        <p>
+            Si necesitas realizar esta acción, comunícate con el administrador.
+        </p>
+
+        <a href="/" class="boton-inicio">Regresar al inicio</a>
+    </main>
+</body>
+</html>
